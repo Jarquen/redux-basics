@@ -1,7 +1,8 @@
 import axios from "axios";
 
 export const GET_POSTS = "GET_POSTS";
-export const ADD_POSTS = "ADD_POSTS";
+export const ADD_POST = "ADD_POST";
+export const EDIT_POST = "EDIT_POST";
 
 export const getPosts = () => {
     return (dispatch) => {
@@ -14,9 +15,18 @@ export const getPosts = () => {
 
 export const addPosts = (data) => {
     return (dispatch) => {
-        return axios.post('http://localhost:3000/posts', data).then((res) => {
-            dispatch({type: ADD_POSTS, payload: data})
+        return axios.post('http://localhost:3000/posts', data).then(() => {
+            dispatch({type: ADD_POST, payload: data});
         })
-            .catch((err) => console.log(err))
+            .catch((err) => console.log(err));
+    };
+};
+
+export const editPosts = (data) => {
+    return (dispatch) => {
+        return axios.put('http://localhost:3000/posts/${data.id}', {...data}).then(() => {
+            dispatch({type: EDIT_POST, payload: {...data}});
+        })
+            .catch((err) => console.log(err));
     };
 };
