@@ -22,9 +22,13 @@ export const addPosts = (data) => {
     };
 };
 
-export const editPosts = (data) => {
+export const editPost = (data) => {
     return (dispatch) => {
-        return axios.put('http://localhost:3000/posts/${data.id}', {...data}).then(() => {
+        return axios({
+            method: 'put',
+            url: `http://localhost:3000/posts/${data.id}`,
+            data: {...data},
+        }).then(() => {
             dispatch({type: EDIT_POST, payload: {...data}});
         })
             .catch((err) => console.log(err));
